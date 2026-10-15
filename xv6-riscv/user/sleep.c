@@ -6,9 +6,6 @@ int
 main(int argc, char *argv[])
 {
 
-  int y = atoi(argv[1]);
-
-
   if (argc != 2) {
     fprintf(2, "Usage: sleep <ticks>\n");
     exit(1);
