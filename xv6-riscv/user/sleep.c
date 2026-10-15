@@ -5,7 +5,7 @@
 int
 main(int argc, char *argv[])
 {
-  int i;
+
   int y = atoi(argv[1]);
 
 
