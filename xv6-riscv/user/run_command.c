@@ -14,8 +14,16 @@ void execute_line(char** args) {
     if (f == 0) {
         exec(args[0], args); // Child process executes the command.
         //int exit(int status); 
-    } else {
-        wait(); // Parent waiting for child process to exit.
+        fprintf(2, "exec %s failed\n", args[0]); 
+        exit(1); 
+    } else if (f < 0) {
+        fprintf(2, "fork failed\n"); 
+        exit(1); 
+    }
+    
+    
+    else {
+        wait(0); // Parent waiting for child process to exit.
     }
 }
 
@@ -29,7 +37,7 @@ int main(int argc, char *argv[]) {
   char buf[512], *b;
   // Point b to the first character in the line.
 
-    *b = buf; 
+    b = buf; 
 
   // Read characters from the standard input. When we find '\n' that
   // means one line has terminated - execute the command.
@@ -38,6 +46,10 @@ int main(int argc, char *argv[]) {
     // Check the current character in b. If it is not special, move the pointer
     // b to the next character and continue reading. 
     // 
+    //fprintf(2, "Please enter command and press enter (type 'q' to exit):\n");
+    
+
+    
     if (*b == '\n') {
         *b = 0; //test 
         if (buf[0] == 'q') { 
@@ -47,6 +59,11 @@ int main(int argc, char *argv[]) {
         args[0] = buf; 
         args[1] = 0; 
         execute_line(args); 
+
+
+        fprintf(2, "Please enter command and press enter (type 'q' to exit):\n");
+
+
         
         b = buf; 
     } else {
